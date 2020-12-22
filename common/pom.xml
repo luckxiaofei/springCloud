@@ -11,13 +11,6 @@
     </parent>
     <artifactId>common</artifactId>
     <dependencies>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.8.RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
 

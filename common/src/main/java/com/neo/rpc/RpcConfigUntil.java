@@ -1,11 +1,11 @@
 package com.neo.rpc;
 
 
-import com.apple.eawt.ApplicationEvent;
-import com.apple.eawt.ApplicationListener;
 import com.neo.annotation.RpcAutowired;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 @Configuration
 public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
 
+    @Override
     public void onApplicationEvent(ApplicationEvent event) {
         // 这里的生命周期不做介绍了，大家自己搜搜即可。
         if ((event instanceof ContextRefreshedEvent)) {
@@ -110,66 +111,4 @@ public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
         return bean;
     }
 
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handleAbout(ApplicationEvent applicationEvent) {
-
-    }
-
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handleOpenApplication(ApplicationEvent applicationEvent) {
-
-    }
-
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handleOpenFile(ApplicationEvent applicationEvent) {
-
-    }
-
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handlePreferences(ApplicationEvent applicationEvent) {
-
-    }
-
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handlePrintFile(ApplicationEvent applicationEvent) {
-
-    }
-
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handleQuit(ApplicationEvent applicationEvent) {
-
-    }
-
-    /**
-     * @param applicationEvent
-     * @deprecated
-     */
-    @Override
-    public void handleReOpenApplication(ApplicationEvent applicationEvent) {
-
-    }
 }
