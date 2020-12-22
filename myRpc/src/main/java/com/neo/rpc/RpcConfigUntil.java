@@ -1,7 +1,7 @@
 package com.neo.rpc;
 
 
-import com.neo.annotation.RpcAutowired;
+import com.neo.annotation.RpcServiceResource;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationEvent;
@@ -50,7 +50,7 @@ public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
             }
 
             for (Field field : target.getClass().getDeclaredFields()) {
-                RpcAutowired rpc = field.getAnnotation(RpcAutowired.class);
+                RpcServiceResource rpc = field.getAnnotation(RpcServiceResource.class);
                 if (null != rpc) {
                     field.setAccessible(true);
 
@@ -65,7 +65,6 @@ public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
                             context.getBeanFactory().registerSingleton(serviceName, consumerBean); // 注册到Spring
                         } else {
                         }
-
                         Object remoteBean = context.getBean(serviceName);
 
                         field.set(target, remoteBean);

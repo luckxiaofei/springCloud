@@ -12,6 +12,9 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * @author fei
+ */
 public class ClientStub implements FactoryBean<Object> {
 
     private Class<?> mapperInterface;
@@ -22,12 +25,19 @@ public class ClientStub implements FactoryBean<Object> {
      * 地址可以考虑一个合适的方式去获取
      */
     private String address = "localhost";
-    // 端口可以放到配置中心或者其他方式获取
+
+    /**
+     * 端口可以放到配置中心或者其他方式获取
+     */
     private int port = 9000;
 
     private Object proxy;
 
-    // 构造的时候，实例化了一个代理对象
+    /**
+     * 构造的时候，实例化了一个代理对象
+     *
+     * @param mapperInterface
+     */
     public ClientStub(final Class<?> mapperInterface) {
         proxy = Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[]{mapperInterface},
                 new InvocationHandler() {
@@ -97,7 +107,12 @@ public class ClientStub implements FactoryBean<Object> {
                 });
     }
 
-    // 实现了FactoryBean，这个方法返回实际的对象
+    /**
+     * 实现了FactoryBean，这个方法返回实际的对象
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object getObject() throws Exception {
         System.err.println("getObject");

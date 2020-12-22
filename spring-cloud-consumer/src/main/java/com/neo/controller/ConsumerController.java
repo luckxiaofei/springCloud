@@ -1,6 +1,6 @@
 package com.neo.controller;
 
-import com.neo.annotation.RpcAutowired;
+import com.neo.annotation.RpcServiceResource;
 import com.neo.remote.HelloRemote;
 import com.neo.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class ConsumerController {
 
     @Autowired
     HelloRemote HelloRemote;
-    @RpcAutowired("helloService")
+    @RpcServiceResource("helloService")
     HelloService helloService;
 
     @RequestMapping("/hello/{name}")

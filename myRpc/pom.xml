@@ -9,7 +9,7 @@
         <groupId>com.neo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>common</artifactId>
+    <artifactId>myRpc</artifactId>
     <dependencies>
     </dependencies>
 
