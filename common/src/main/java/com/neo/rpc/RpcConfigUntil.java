@@ -1,35 +1,41 @@
-package com.demo.rpc;
+package com.neo.rpc;
 
 
-import com.demo.annotation.RpcAutowired;
-import com.demo.annotation.RpcService;
+import com.apple.eawt.ApplicationEvent;
+import com.apple.eawt.ApplicationListener;
+import com.neo.annotation.RpcAutowired;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.support.AbstractApplicationContext;
 
-import javax.annotation.PostConstruct;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
+/**
+ * @author fei
+ */
 @Configuration
 public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
 
     public void onApplicationEvent(ApplicationEvent event) {
-        if ((event instanceof ContextRefreshedEvent)) { // 这里的生命周期不做介绍了，大家自己搜搜即可。
+        // 这里的生命周期不做介绍了，大家自己搜搜即可。
+        if ((event instanceof ContextRefreshedEvent)) {
             try {
                 AbstractApplicationContext context = (AbstractApplicationContext) event.getSource();
-                injectionRemoteService(context); // 在合适的生命周期下（ContextRefreshedEvent），进行远程对象的注入
+                // 在合适的生命周期下（ContextRefreshedEvent），进行远程对象的注入
+                injectionRemoteService(context);
             } catch (Exception e) {
             }
         }
 
     }
 
-    // 注入的原理就是，扫描所有的注册到Spring中的对象中的属性，凡是使用了@MyRpc注解的属性，都手动实例化一个远程对象并且set给这个属性
+    /**
+     * 注入的原理就是，扫描所有的注册到Spring中的对象中的属性，凡是使用了@MyRpc注解的属性，都手动实例化一个远程对象并且set给这个属性
+     *
+     * @param context
+     */
     public void injectionRemoteService(AbstractApplicationContext context) {
         String[] beannames = context.getBeanDefinitionNames();
         for (String name : beannames) {
@@ -75,7 +81,13 @@ public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
         }
     }
 
-    // 实例化远程对象，就是new了一个ClientStub对象。
+    /**
+     * 实例化远程对象，就是new了一个ClientStub对象。
+     *
+     * @param clzz
+     * @param serviceName
+     * @return
+     */
     private ClientStub createConsumerBean(Class<?> clzz, String serviceName) {
         ClientStub consumerBean = new ClientStub(clzz);
         consumerBean.setServiceName(serviceName);
@@ -98,4 +110,66 @@ public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
         return bean;
     }
 
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handleAbout(ApplicationEvent applicationEvent) {
+
+    }
+
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handleOpenApplication(ApplicationEvent applicationEvent) {
+
+    }
+
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handleOpenFile(ApplicationEvent applicationEvent) {
+
+    }
+
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handlePreferences(ApplicationEvent applicationEvent) {
+
+    }
+
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handlePrintFile(ApplicationEvent applicationEvent) {
+
+    }
+
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handleQuit(ApplicationEvent applicationEvent) {
+
+    }
+
+    /**
+     * @param applicationEvent
+     * @deprecated
+     */
+    @Override
+    public void handleReOpenApplication(ApplicationEvent applicationEvent) {
+
+    }
 }

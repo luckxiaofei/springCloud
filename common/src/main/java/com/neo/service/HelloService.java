@@ -1,4 +1,4 @@
-package com.demo.service;
+package com.neo.service;
 
 public interface HelloService {
 

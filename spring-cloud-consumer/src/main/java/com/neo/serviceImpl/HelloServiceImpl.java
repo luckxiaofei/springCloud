@@ -1,6 +1,6 @@
 package com.neo.serviceImpl;
 
-import com.demo.annotation.RpcService;
+import com.neo.annotation.RpcService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

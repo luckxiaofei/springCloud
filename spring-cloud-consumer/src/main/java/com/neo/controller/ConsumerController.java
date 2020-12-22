@@ -1,13 +1,16 @@
 package com.neo.controller;
 
-import com.demo.annotation.RpcAutowired;
-import com.demo.service.HelloService;
+import com.neo.annotation.RpcAutowired;
 import com.neo.remote.HelloRemote;
+import com.neo.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author fei
+ */
 @RestController
 public class ConsumerController {
 

@@ -1,4 +1,4 @@
-package com.demo.rpc;
+package com.neo.rpc;
 
 
 import org.springframework.beans.factory.FactoryBean;

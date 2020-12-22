@@ -1,12 +1,12 @@
 package com.neo.serviceImpl;
 
-import com.demo.annotation.RpcService;
+import com.neo.annotation.RpcService;
 
 @RpcService
-public class HelloService implements com.demo.service.HelloService {
+public class HelloService implements com.neo.service.HelloService {
 
     @Override
     public String getInfo(String name) {
-        return "我是helloServiceImpl的："+name;
+        return "我是helloServiceImpl的：" + name;
     }
 }
