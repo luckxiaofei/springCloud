@@ -28,12 +28,11 @@
 
     <modules>
         <module>myRpc</module>
-        <module>spring-cloud-consumer</module>
-        <module>spring-cloud-consul</module>
-        <module>spring-cloud-producer</module>
         <module>service</module>
+        <module>spring-cloud-consul</module>
         <module>spring-cloud-zookeeper</module>
         <module>spring-cloud-producer</module>
+        <module>spring-cloud-consumer</module>
     </modules>
 
     <dependencies>
