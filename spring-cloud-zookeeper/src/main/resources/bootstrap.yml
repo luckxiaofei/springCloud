@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    zookeeper:
+      discovery:
+        instance-id: test
+        instance-port: 2181
+        instance-host: localhost
+        enabled: true
+        register: true
+

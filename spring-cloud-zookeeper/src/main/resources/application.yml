@@ -1,0 +1,9 @@
+## 关闭安全控制
+management:
+  security:
+    enabled: false
+#配置服务的名称
+spring:
+  application:
+    name: zk-client
+

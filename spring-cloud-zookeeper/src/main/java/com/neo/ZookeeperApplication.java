@@ -3,16 +3,16 @@ package com.neo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * @author 陈小飞 luckxiaofei@outlook.com
+ * @date 12/23/20 12:05 下午
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan(value = {"com.neo", "com.demo"})
-public class ConsumerApplication {
+public class ZookeeperApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConsumerApplication.class, args);
+        SpringApplication.run(ZookeeperApplication.class, args);
     }
-
-
 }
