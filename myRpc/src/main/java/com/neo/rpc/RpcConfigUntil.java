@@ -53,22 +53,19 @@ public class RpcConfigUntil implements ApplicationListener<ApplicationEvent> {
                 RpcServiceResource rpc = field.getAnnotation(RpcServiceResource.class);
                 if (null != rpc) {
                     field.setAccessible(true);
-
                     String serviceName = rpc.value();
-
                     try {
-
                         if (!context.getBeanFactory().containsSingleton(serviceName)) {
                             System.err.println("injectionRemoteService serviceName " + serviceName);
                             System.err.println("injectionRemoteService field " + field.getType());
-                            ClientStub consumerBean = createConsumerBean(field.getType(), serviceName); // 实例化远程对象
-                            context.getBeanFactory().registerSingleton(serviceName, consumerBean); // 注册到Spring
+                            // 实例化远程对象
+                            ClientStub consumerBean = createConsumerBean(field.getType(), serviceName);
+                            // 注册到Spring
+                            context.getBeanFactory().registerSingleton(serviceName, consumerBean);
                         } else {
                         }
                         Object remoteBean = context.getBean(serviceName);
-
                         field.set(target, remoteBean);
-
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                         break;
