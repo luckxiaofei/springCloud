@@ -1,0 +1,14 @@
+logging:
+  level:
+    root: info
+
+server:
+  port: ${random.int[10000,19999]} #随机端口
+
+spring:
+  profiles:
+    active: rpc
+
+zk_conn_str: 127.0.0.1:2181
+zk_session_timeout: 5000
+zk_namespace: /rpc
