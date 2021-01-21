@@ -1,6 +1,5 @@
 package com.neo.controller;
 
-import cn.itweknow.sbrpccorestarter.anno.RpcServiceResource;
 import com.neo.service.HelloService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
-    @RpcServiceResource
     private HelloService helloService;
 }
