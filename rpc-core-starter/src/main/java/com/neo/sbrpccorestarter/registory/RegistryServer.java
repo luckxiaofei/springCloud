@@ -1,6 +1,7 @@
 package com.neo.sbrpccorestarter.registory;
 
 import com.neo.sbrpccorestarter.exception.ZkConnectException;
+import lombok.Data;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
@@ -17,12 +18,13 @@ import java.io.IOException;
  * @date 2018/10/26 16:04
  * @description
  */
+@Data
 public class RegistryServer {
 
     private Logger logger = LoggerFactory.getLogger(RegistryServer.class);
 
     /**
-     * zk的地址
+     * rpc  zk的客户端
      */
     private CuratorFramework zooKeeper;
 
@@ -32,32 +34,35 @@ public class RegistryServer {
     private int timeout;
 
     /**
-     * 服务名
-     */
-    private String serverName;
-    /**
      * 模块Name
      */
     private String moduleName;
 
-    private String host;
+    /**
+     * 服务名
+     */
+    private String serverName;
 
-    private int port;
+    /**
+     * 服务ip
+     */
+    private String serverHost;
+
+    /**
+     * 服务端口
+     */
+    private int serverPort;
 
 
-    public RegistryServer(
-            CuratorFramework zooKeeper,
-            int timeout,
-            String serverName,
-            String moduleName,
-            String host,
-            int port) {
+    public RegistryServer(CuratorFramework zooKeeper, int timeout,
+                          String serverName, String moduleName,
+                          String serverHost, int serverPort) {
         this.zooKeeper = zooKeeper;
         this.timeout = timeout;
         this.moduleName = moduleName;
         this.serverName = serverName;
-        this.host = host;
-        this.port = port;
+        this.serverHost = serverHost;
+        this.serverPort = serverPort;
     }
 
     /**
@@ -76,9 +81,9 @@ public class RegistryServer {
             }
             //注册模块下的服务
             String path = "/" + moduleName;
-            String data = serverName + "," + host + ":" + port;
+            String data = moduleName + "," + serverName + "," + serverHost + ":" + serverPort;
             zooKeeper.create().withMode(CreateMode.EPHEMERAL).forPath("/" + moduleName + "/" + serverName, data.getBytes());
-            logger.info("provider register success {}", data);
+            logger.info("server register success {}", data);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ZkConnectException("register to zk exception : " + e.getMessage());

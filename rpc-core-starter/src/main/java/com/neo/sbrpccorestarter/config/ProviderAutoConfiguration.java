@@ -3,6 +3,7 @@ package com.neo.sbrpccorestarter.config;
 import com.neo.sbrpccorestarter.anno.RpcService;
 import com.neo.sbrpccorestarter.common.RpcDecoder;
 import com.neo.sbrpccorestarter.common.RpcEncoder;
+import com.neo.sbrpccorestarter.exception.RpcException;
 import com.neo.sbrpccorestarter.exception.ZkConnectException;
 import com.neo.sbrpccorestarter.model.RpcRequest;
 import com.neo.sbrpccorestarter.model.RpcResponse;
@@ -21,9 +22,11 @@ import org.apache.curator.framework.CuratorFramework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
@@ -58,29 +61,30 @@ public class ProviderAutoConfiguration {
     public void init() {
         logger.info("rpc server start scanning provider service...");
         Map<String, Object> beanMap = this.applicationContext.getBeansWithAnnotation(RpcService.class);
-        if (null != beanMap && !beanMap.isEmpty()) {
-            beanMap.entrySet().forEach(one -> {
-                Object bean = one.getValue();
-                BeanFactory.addBean(bean.getClass(), bean);
-            });
-        }
         logger.info("rpc server scan over...");
         // 如果有服务的话才启动netty server
         if (!beanMap.isEmpty()) {
             int port = rpcProperties.getPort();
             startNetty(port);
             // netty服务端启动成功后，向zk注册这个服务
-            String registerAddress = rpcProperties.getRegisterAddress();
-            System.out.println(registerAddress);
             beanMap.entrySet().forEach(one -> {
                 try {
-                    String serverName = one.getKey();
-                    int timeout = rpcProperties.getTimeout();
-                    String moduleName = rpcProperties.getModuleName();
-                    String host = rpcProperties.getHost();
-                    new RegistryServer(zk, timeout, serverName, moduleName, host, port).register();
-                } catch (ZkConnectException e) {
-                    logger.info("");
+                    Object serviceBean = one.getValue();
+                    String RpcServiceName = serviceBean.getClass().getAnnotation(RpcService.class).value();
+                    if (StringUtils.isEmpty(RpcServiceName)) {
+                        Class<?>[] interfaces = serviceBean.getClass().getInterfaces();
+                        if (interfaces == null || interfaces.length <= 0) {
+                            throw new RpcException("rpc异常:service请实现接口");
+                        }
+                        for (Class<?> anInterface : interfaces) {
+                            RpcServiceName = anInterface.getSimpleName();
+                            int timeout = rpcProperties.getTimeout();
+                            String moduleName = rpcProperties.getModuleName();
+                            String host = rpcProperties.getHost();//todof 自动获取ip 待完善
+                            new RegistryServer(zk, timeout, RpcServiceName, moduleName, host, port).register();
+                        }
+                    }
+                } catch (ZkConnectException | RpcException e) {
                     e.printStackTrace();
                 }
             });

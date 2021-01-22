@@ -8,7 +8,7 @@ import com.neo.sbrpccorestarter.anno.RpcService;
  * @date 12/24/20 5:04 下午
  */
 @RpcService
-public class TestService implements HelloService {
+public class HelloServiceImpl implements HelloService {
 
     /**
      * 测试

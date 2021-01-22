@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author fei
  */
 @SpringBootApplication
-public class SpringCloudConsulApplication {
+public class SpringCloudConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudConsulApplication.class, args);
+        SpringApplication.run(SpringCloudConsumerApplication.class, args);
     }
 }

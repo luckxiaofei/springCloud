@@ -9,3 +9,10 @@ spring:
     name: spring-cloud-consul
   rabbitmq:
     publisher-confirm-type:
+
+
+rpc:
+  registerAddress: localhost:2181
+  port: ${random.int[10000,19999]}
+  moduleName: spring-cloud-consul
+  timeout: 2000

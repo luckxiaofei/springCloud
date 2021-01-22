@@ -1,5 +1,5 @@
 server:
-  port: 8803
+  port: 8804
 #  port: ${random.int[10000,19999]} #随机端口
 
 spring:
@@ -8,11 +8,11 @@ spring:
 
 
 
-# 手写rpc todof
-#spring:
-#  rpc:
-#    register-address: localhost:2181
-#    module-name: customer
+rpc:
+  registerAddress: localhost:2181
+  port: ${random.int[10000,19999]}
+  moduleName: spring-cloud-consumer
+  timeout: 2000
 
 
 

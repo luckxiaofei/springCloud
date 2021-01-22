@@ -33,7 +33,7 @@ public class RpcProxy {
                     // 获取一个服务提供者。
                     ProviderInfo providerInfo = discoveryService.discover(serviceName);
                     // 解析服务提供者的地址信息，数组第一个元素为ip地址，第二个元素为端口号。
-                    String[] addrInfo = providerInfo.getAddr().split(":");
+                    String[] addrInfo = providerInfo.getServerAddr().split(":");
                     String host = addrInfo[0];
                     int port = Integer.parseInt(addrInfo[1]);
                     RpcClient rpcClient = new RpcClient(host, port);

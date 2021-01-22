@@ -46,7 +46,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
     private Object handle(RpcRequest request) throws Exception {
         String className = request.getClassName();
         Class<?> objClz = Class.forName(className);
-        Object o = BeanFactory.getBean(objClz);
+        Object o = objClz.newInstance();
         // 获取调用的方法名称。
         String methodName = request.getMethodName();
         // 参数类型

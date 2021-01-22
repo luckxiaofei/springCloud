@@ -1,6 +1,9 @@
 package com.neo.controller;
 
+import com.neo.sbrpccorestarter.anno.RpcServiceResource;
 import com.neo.service.HelloService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -9,5 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
+    @RpcServiceResource
     private HelloService helloService;
+
+    @GetMapping("/hello")
+    public String hello(String name) {
+        return helloService.hello(name);
+    }
 }
